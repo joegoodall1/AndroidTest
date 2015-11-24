@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:id="@+id/grid_item_image"/>
+        android:id="@+id/hero_item_image"/>
 
     <TextView
         android:layout_alignParentTop="true"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:padding="16dp"
-        android:id="@+id/grid_item_title"/>
+        android:id="@+id/hero_item_title"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,6 +29,6 @@
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/grid_item_body"/>
+        android:id="@+id/hero_item_body"/>
 
 </RelativeLayout>
