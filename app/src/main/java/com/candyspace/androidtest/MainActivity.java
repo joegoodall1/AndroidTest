@@ -24,16 +24,6 @@ public class MainActivity extends AppCompatActivity {
 		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 		GridLayoutManager manager = new GridLayoutManager(this, 2);
-		manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-			@Override
-			public int getSpanSize(int position) {
-				if (position == 0) {
-					return 2;
-				} else {
-					return 1;
-				}
-			}
-		});
 
 		recyclerView.setLayoutManager(manager);
 

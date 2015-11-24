@@ -13,7 +13,7 @@ import retrofit.converter.GsonConverter;
 
 public class RetrofitMostPopularApi implements MostPopularApi {
 
-	private MostPopularService service;
+	private final MostPopularService service;
 
 	public RetrofitMostPopularApi() {
 
@@ -36,8 +36,9 @@ public class RetrofitMostPopularApi implements MostPopularApi {
 
 			@Override
 			public void success(Response response, retrofit.client.Response response2) {
-				if(response == null) {
+				if(response == null || response.getResults() == null) {
 					callback.onFailure("No response returned");
+					return;
 				}
 				List<Article> articles = new ArrayList<>();
 				for(Article article : response.getResults()) {

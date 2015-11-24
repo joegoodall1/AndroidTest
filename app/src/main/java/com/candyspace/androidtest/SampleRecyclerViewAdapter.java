@@ -1,6 +1,5 @@
 package com.candyspace.androidtest;
 
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.candyspace.androidtest.api.Article;
+import com.candyspace.androidtest.model.ArticleWrapper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecyclerViewAdapter.SampleViewHolder> {
 
-	private List<Article> articles = new ArrayList<>();
+	private final List<Article> articles = new ArrayList<>();
 
 	@Override
 	public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,9 +32,12 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		Article article = articles.get(position);
 		holder.title.setText(article.getTitle());
 		holder.body.setText(article.getBody());
-		String imageUrl = getImageUrl(article);
-		if (imageUrl != null) {
-			Picasso.with(holder.itemView.getContext()).load(imageUrl).into(holder.image);
+
+		ArticleWrapper articleWrapper = new ArticleWrapper(article);
+		if (articleWrapper.getHeroImageUrl() != null) {
+			Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
+		} else {
+			holder.image.setImageBitmap(null);
 		}
 	}
 
@@ -44,7 +47,10 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 	}
 
 	public void setArticles(List<Article> articles){
-		this.articles = articles;
+		this.articles.clear();
+		if(articles != null) {
+			this.articles.addAll(articles);
+		}
 		notifyDataSetChanged();
 	}
 
@@ -61,36 +67,6 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 			body = (TextView) itemView.findViewById(R.id.grid_item_body);
 		}
 
-	}
-
-	@Nullable
-	private String getImageUrl(Article article){
-		for(Article.Media media : article.getMediaList()) {
-			if(media.getType().equalsIgnoreCase("image")) {
-				return getThumbUrl(media.getMediaMetadataList());
-			}
-		}
-		return null;
-	}
-
-	@Nullable
-	private String getThumbUrl(List<Article.Media.MediaMetadata> mediaMetadataList){
-		for(Article.Media.MediaMetadata item : mediaMetadataList) {
-			if (item.getFormat().equalsIgnoreCase("Standard Thumbnail")) {
-				return item.getUrl();
-			}
-		}
-		return null;
-	}
-
-	@Nullable
-	private String getHeroUrl(List<Article.Media.MediaMetadata> mediaMetadataList){
-		for(Article.Media.MediaMetadata item : mediaMetadataList) {
-			if (item.getFormat().equalsIgnoreCase("square640")) {
-				return item.getUrl();
-			}
-		}
-		return null;
 	}
 
 }
