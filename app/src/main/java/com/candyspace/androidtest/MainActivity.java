@@ -2,6 +2,8 @@ package com.candyspace.androidtest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.candyspace.androidtest.api.Article;
@@ -18,12 +20,33 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+		GridLayoutManager manager = new GridLayoutManager(this, 2);
+		manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+			@Override
+			public int getSpanSize(int position) {
+				if (position == 0) {
+					return 2;
+				} else {
+					return 1;
+				}
+			}
+		});
+
+		recyclerView.setLayoutManager(manager);
+
+		final SampleRecyclerViewAdapter adapter = new SampleRecyclerViewAdapter();
+		recyclerView.setAdapter(adapter);
+
 		MostPopularApi api = new RetrofitMostPopularApi();
 		api.fetchArticles(new MostPopularApi.Callback() {
 
 			@Override
 			public void onSuccess(List<Article> articles) {
 				Log.d(TAG, "Got articles");
+				adapter.setArticles(articles);
 			}
 
 			@Override

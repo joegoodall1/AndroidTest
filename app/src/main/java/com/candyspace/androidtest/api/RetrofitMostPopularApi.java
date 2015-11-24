@@ -24,7 +24,6 @@ public class RetrofitMostPopularApi implements MostPopularApi {
 		RestAdapter adapter = new RestAdapter.Builder()
 			.setEndpoint("http://api.nytimes.com")
 			.setConverter(new GsonConverter(gson))
-			.setLogLevel(RestAdapter.LogLevel.FULL)
 			.build();
 
 		service = adapter.create(MostPopularService.class);
@@ -51,7 +50,6 @@ public class RetrofitMostPopularApi implements MostPopularApi {
 
 			@Override
 			public void failure(RetrofitError error) {
-				System.out.println(error.getMessage());
 				callback.onFailure(error.getMessage());
 			}
 

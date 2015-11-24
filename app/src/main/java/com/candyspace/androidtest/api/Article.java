@@ -4,13 +4,107 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/*
+Sample article in JSON:
+
+{
+  "url": "http:\/\/www.nytimes.com\/2015\/11\/25\/world\/europe\/turkey-syria-russia-military-plane.html",
+  "adx_keywords": "Airlines and Airplanes;North Atlantic Treaty Organization;Syria",
+  "column": "",
+  "section": "World",
+  "byline": "By CEYLAN YEGINSU and NEIL MacFARQUHAR",
+  "type": "Article",
+  "title": "Turkey Shoots Down Russian Warplane Near Syrian Border",
+  "abstract": "President Vladimir V. Putin of Russia confirmed that an F-16 Turkish fighter jet brought down a Russian aircraft that he said had remained in Syrian airspace.",
+  "published_date": "2015-11-25",
+  "source": "The New York Times",
+  "id": 1.0000000405547e+14,
+  "asset_id": 1.0000000405547e+14,
+  "views": 1,
+  "des_facet": [
+	"AIRLINES AND AIRPLANES"
+  ],
+  "org_facet": [
+	"NORTH ATLANTIC TREATY ORGANIZATION"
+  ],
+  "per_facet": "",
+  "geo_facet": [
+	"SYRIA"
+  ],
+  "media": [
+	{
+	  "type": "image",
+	  "subtype": "photo",
+	  "caption": "A military plane in flames after being shot down by Turkish fighter jets near to the Syrian border on Tuesday.",
+	  "copyright": "Fatih Akta\/Anadolu Agency, via Getty Images",
+	  "media-metadata": [
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-square320.jpg",
+		  "format": "square320",
+		  "height": 320,
+		  "width": 320
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-thumbStandard.jpg",
+		  "format": "Standard Thumbnail",
+		  "height": 75,
+		  "width": 75
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-articleInline-v2.jpg",
+		  "format": "Normal",
+		  "height": 127,
+		  "width": 190
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-sfSpan-v2.jpg",
+		  "format": "Large",
+		  "height": 263,
+		  "width": 395
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-jumbo-v2.jpg",
+		  "format": "Jumbo",
+		  "height": 682,
+		  "width": 1024
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-superJumbo-v2.jpg",
+		  "format": "superJumbo",
+		  "height": 714,
+		  "width": 1072
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-thumbLarge.jpg",
+		  "format": "Large Thumbnail",
+		  "height": 150,
+		  "width": 150
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-mediumThreeByTwo210-v2.jpg",
+		  "format": "mediumThreeByTwo210",
+		  "height": 140,
+		  "width": 210
+		},
+		{
+		  "url": "http:\/\/static01.nyt.com\/images\/2015\/11\/25\/world\/25Turkey-web\/25Turkey-web-mediumThreeByTwo440-v2.jpg",
+		  "format": "mediumThreeByTwo440",
+		  "height": 293,
+		  "width": 440
+		}
+	  ]
+	}
+  ]
+}
+ */
+
 public class Article {
 
 	@SerializedName("url")
 	private String url;
 	@SerializedName("title")
 	private String title;
-	@SerializedName("body")
+	@SerializedName("abstract")
 	private String body;
 
 	@SerializedName("media")
@@ -48,7 +142,7 @@ public class Article {
 		this.mediaList = media;
 	}
 
-	static class Media {
+	public static class Media {
 
 		@SerializedName("type")
 		private String type;
@@ -72,7 +166,7 @@ public class Article {
 			this.mediaMetadataList = mediaMetadataList;
 		}
 
-		static class MediaMetadata {
+		public static class MediaMetadata {
 
 			@SerializedName("url")
 			private String url;
