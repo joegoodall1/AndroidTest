@@ -42,7 +42,7 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		holder.body.setText(article.getBody());
 
 		ArticleWrapper articleWrapper = new ArticleWrapper(article);
-		if (articleWrapper.getHeroImageUrl() != null) {
+		if (articleWrapper.getThumbImageUrl() != null) {
 			Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
 		} else {
 			holder.image.setImageBitmap(null);
