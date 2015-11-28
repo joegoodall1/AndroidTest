@@ -21,10 +21,18 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 
 	private final List<Article> articles = new ArrayList<>();
 
+
 	@Override
 	public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-		return new SampleViewHolder(v);
+		View w = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
+		switch (viewType) {
+			case 0:
+				return new SampleViewHolder(v);
+			case 1:
+				return new SampleViewHolder(w);
+		}
+		return null;
 	}
 
 	@Override
