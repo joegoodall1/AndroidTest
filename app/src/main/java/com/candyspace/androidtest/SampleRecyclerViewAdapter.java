@@ -54,6 +54,7 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		return articles.size();
 	}
 
+
 	public void setArticles(List<Article> articles){
 		this.articles.clear();
 		if(articles != null) {
