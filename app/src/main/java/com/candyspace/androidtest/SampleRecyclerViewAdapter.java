@@ -24,8 +24,10 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 
 	@Override
 	public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-		View w = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
+		View w = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+
+
 		switch (viewType) {
 			case 0:
 				return new SampleViewHolder(v);
@@ -69,11 +71,19 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		TextView title;
 		TextView body;
 
+		/*ImageView heroImage;
+		TextView heroTitle;
+		TextView heroBody;*/
+
 		public SampleViewHolder(View itemView) {
 			super(itemView);
-			image = (ImageView) itemView.findViewById(R.id.grid_item_image);
+			/*image = (ImageView) itemView.findViewById(R.id.grid_item_image);
 			title = (TextView) itemView.findViewById(R.id.grid_item_title);
-			body = (TextView) itemView.findViewById(R.id.grid_item_body);
+			body = (TextView) itemView.findViewById(R.id.grid_item_body);*/
+
+			image = (ImageView) itemView.findViewById(R.id.hero_item_image);
+			title = (TextView) itemView.findViewById(R.id.hero_item_title);
+			body = (TextView) itemView.findViewById(R.id.hero_item_body);
 		}
 
 	}
