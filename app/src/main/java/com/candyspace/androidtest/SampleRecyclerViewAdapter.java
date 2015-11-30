@@ -21,33 +21,71 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 
 	private final List<Article> articles = new ArrayList<>();
 
+	private static final int GRID_VIEW = 0;
+	private static final int HERO_VIEW = 1;
+
+	@Override
+	public int getItemViewType(int position) {
+		int viewType;
+		if (getItemCount() < 3) {
+			viewType = GRID_VIEW;
+		} else {
+			viewType = HERO_VIEW;
+		}
+
+		return viewType;
+	}
 
 	@Override
 	public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
-		View w = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
-
 
 		switch (viewType) {
-			case 0:
-				return new SampleViewHolder(v);
-			case 1:
-				return new SampleViewHolder(w);
+			case GRID_VIEW:
+				View grid = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+				return new SampleViewHolder(grid);
+			case HERO_VIEW:
+				View hero = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
+				return new SampleViewHolder(hero);
+			default:
+				View grid0 = LayoutInflater.from(parent.getContext()).inflate(R.layout.hero_item, parent, false);
+				return new SampleViewHolder(grid0);
 		}
-		return null;
+
 	}
 
 	@Override
 	public void onBindViewHolder(SampleViewHolder holder, int position) {
-		Article article = articles.get(position);
-		holder.title.setText(article.getTitle());
-		holder.body.setText(article.getBody());
 
-		ArticleWrapper articleWrapper = new ArticleWrapper(article);
-		if (articleWrapper.getThumbImageUrl() != null) {
-			Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
-		} else {
-			holder.image.setImageBitmap(null);
+		switch (holder.getItemViewType()) {
+
+			case GRID_VIEW:
+
+				Article article = articles.get(position);
+				holder.title.setText(article.getTitle());
+				holder.body.setText(article.getBody());
+
+				ArticleWrapper articleWrapper = new ArticleWrapper(article);
+				if (articleWrapper.getThumbImageUrl() != null) {
+					Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
+				} else {
+					holder.image.setImageBitmap(null);
+				}
+				break;
+
+			case HERO_VIEW:
+
+				Article heroArticle = articles.get(position);
+				holder.heroTitle.setText(heroArticle.getTitle());
+				holder.heroBody.setText(heroArticle.getBody());
+
+				ArticleWrapper heroArticleWrapper = new ArticleWrapper(heroArticle);
+				if (heroArticleWrapper.getHeroImageUrl() != null) {
+					Picasso.with(holder.itemView.getContext()).load(heroArticleWrapper.getHeroImageUrl()).into(holder.heroImage);
+				} else {
+					holder.heroImage.setImageBitmap(null);
+				}
+
+				break;
 		}
 	}
 
@@ -55,7 +93,6 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 	public int getItemCount() {
 		return articles.size();
 	}
-
 
 	public void setArticles(List<Article> articles){
 		this.articles.clear();
@@ -71,19 +108,19 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		TextView title;
 		TextView body;
 
-		/*ImageView heroImage;
+		ImageView heroImage;
 		TextView heroTitle;
-		TextView heroBody;*/
+		TextView heroBody;
 
 		public SampleViewHolder(View itemView) {
 			super(itemView);
-			/*image = (ImageView) itemView.findViewById(R.id.grid_item_image);
+			image = (ImageView) itemView.findViewById(R.id.grid_item_image);
 			title = (TextView) itemView.findViewById(R.id.grid_item_title);
-			body = (TextView) itemView.findViewById(R.id.grid_item_body);*/
+			body = (TextView) itemView.findViewById(R.id.grid_item_body);
 
-			image = (ImageView) itemView.findViewById(R.id.hero_item_image);
-			title = (TextView) itemView.findViewById(R.id.hero_item_title);
-			body = (TextView) itemView.findViewById(R.id.hero_item_body);
+			heroImage = (ImageView) itemView.findViewById(R.id.hero_item_image);
+			heroTitle = (TextView) itemView.findViewById(R.id.hero_item_title);
+			heroBody = (TextView) itemView.findViewById(R.id.hero_item_body);
 		}
 
 	}
