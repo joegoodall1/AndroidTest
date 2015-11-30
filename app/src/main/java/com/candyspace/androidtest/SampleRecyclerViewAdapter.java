@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import com.candyspace.androidtest.api.Article;
 import com.candyspace.androidtest.model.ArticleWrapper;
+import com.candyspace.androidtest.model.MySpanSizeLookup;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,22 +19,34 @@ import java.util.List;
  */
 public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecyclerViewAdapter.SampleViewHolder> {
 
-	private final List<Article> articles = new ArrayList<>();
+	private List<Article> mostPopular;
+	private List<Article> leastPopular;
+
 
 	private static final int GRID_VIEW = 0;
 	private static final int HERO_VIEW = 1;
 
 	@Override
 	public int getItemViewType(int position) {
-		int viewType;
-		if (getItemCount() < 3) {
-			viewType = GRID_VIEW;
-		} else {
+
+		int viewType = 0;
+
+
+		if (position == 0) {
 			viewType = HERO_VIEW;
+		} else if (position == 5) {
+			viewType = HERO_VIEW;
+		} else if (position == 10) {
+			viewType = HERO_VIEW;
+		} else if (position == 15) {
+			viewType = HERO_VIEW;
+		} else if (position == MySpanSizeLookup.spanCnt2) {
+			viewType = GRID_VIEW;
 		}
 
 		return viewType;
-	}
+		}
+
 
 	@Override
 	public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,22 +71,26 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 		switch (holder.getItemViewType()) {
 
 			case GRID_VIEW:
+				final int index = position - (position / 5);
+				if (index < leastPopular.size()) {
 
-				Article article = articles.get(position);
-				holder.title.setText(article.getTitle());
-				holder.body.setText(article.getBody());
+					Article article = leastPopular.get(index);
+					holder.title.setText(article.getTitle());
+					holder.body.setText(article.getBody());
 
-				ArticleWrapper articleWrapper = new ArticleWrapper(article);
-				if (articleWrapper.getThumbImageUrl() != null) {
-					Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
-				} else {
-					holder.image.setImageBitmap(null);
+					ArticleWrapper articleWrapper = new ArticleWrapper(article);
+					if (articleWrapper.getThumbImageUrl() != null) {
+						Picasso.with(holder.itemView.getContext()).load(articleWrapper.getThumbImageUrl()).into(holder.image);
+					} else {
+						holder.image.setImageBitmap(null);
+					}
+					break;
 				}
-				break;
+				return;
 
 			case HERO_VIEW:
 
-				Article heroArticle = articles.get(position);
+				Article heroArticle = mostPopular.get(position / 5);
 				holder.heroTitle.setText(heroArticle.getTitle());
 				holder.heroBody.setText(heroArticle.getBody());
 
@@ -91,16 +107,28 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
 
 	@Override
 	public int getItemCount() {
-		return articles.size();
+		if (mostPopular == null) {
+			return 0;
+		} else {
+			return mostPopular.size() + leastPopular.size();
+		}
 	}
 
 	public void setArticles(List<Article> articles){
-		this.articles.clear();
-		if(articles != null) {
-			this.articles.addAll(articles);
-		}
+
+		int result = articles.size() % 5;
+		int temp = articles.size() - result;
+		int newPopular = temp / 5;
+
+		mostPopular = articles.subList(0, newPopular);
+		leastPopular = articles.subList(newPopular, articles.size());
+
+
+
+
 		notifyDataSetChanged();
 	}
+
 
 	static class SampleViewHolder extends RecyclerView.ViewHolder {
 

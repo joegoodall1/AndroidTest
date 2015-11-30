@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 			public void onSuccess(List<Article> articles) {
 				Log.d(TAG, "Got articles");
 				adapter.setArticles(articles);
+
 			}
 
 			@Override
