@@ -6,7 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
  * Created by Joe on 26/11/2015.
  */
 public class MySpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
-    public static int spanPos, spanCnt1, spanCnt2;
+    public final int spanPos, spanCnt1, spanCnt2;
 
     public MySpanSizeLookup(int spanPos, int spanCnt1, int spanCnt2) {
         super();

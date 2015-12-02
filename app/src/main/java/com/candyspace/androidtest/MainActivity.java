@@ -16,6 +16,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 	public static final String TAG = MainActivity.class.getSimpleName();
+	public static final MySpanSizeLookup SPAN_SIZE_LOOKUP = new MySpanSizeLookup(5, 1, 2);
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 		GridLayoutManager manager = new GridLayoutManager(this, 2);
 
-		manager.setSpanSizeLookup(new MySpanSizeLookup(5, 1, 2));
+		manager.setSpanSizeLookup(SPAN_SIZE_LOOKUP);
 
 		recyclerView.setLayoutManager(manager);
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onSuccess(List<Article> articles) {
 				Log.d(TAG, "Got articles");
-				adapter.setArticles(articles);
+				adapter.updateArticles(articles);
 
 			}
 
