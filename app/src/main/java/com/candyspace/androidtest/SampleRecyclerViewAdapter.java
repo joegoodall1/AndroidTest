@@ -30,13 +30,7 @@ public class SampleRecyclerViewAdapter extends RecyclerView.Adapter<SampleRecycl
         int viewType = 0;
 
 
-        if (position == 0) {
-            viewType = HERO_VIEW;
-        } else if (position == 5) {
-            viewType = HERO_VIEW;
-        } else if (position == 10) {
-            viewType = HERO_VIEW;
-        } else if (position == 15) {
+        if (position % 5 == 0) {
             viewType = HERO_VIEW;
         } else if (position == MainActivity.SPAN_SIZE_LOOKUP.spanCnt2) {
             viewType = GRID_VIEW;
